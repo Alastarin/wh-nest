@@ -1,9 +1,26 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
 
+console.log(process.env.MONGO_STRING_URL_CONNECTION);
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGO_STRING_URL_CONNECTION, {
+      user: process.env.MONGO_USER_NAME,
+      pass: process.env.MONGO_USER_PASS,
+      dbName: process.env.MONGO_DATABASE,
+      authMechanism: 'SCRAM-SHA-256',
+      authSource: 'admin',
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
+    UsersModule,
+    ConfigModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
