@@ -7,7 +7,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 
-console.log(process.env.MONGO_STRING_URL_CONNECTION);
 @Module({
   imports: [
     ConfigModule.forRoot(),
