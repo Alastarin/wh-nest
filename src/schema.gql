@@ -11,29 +11,23 @@ type User {
 
   """User email"""
   email: String!
-
-  """User password"""
-  password: String!
 }
 
-type Auth {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type Token {
+  access_token: String!
 }
 
 type Query {
   users: [User!]!
   user(id: String!): User!
-  auth(id: Int!): Auth!
+  whoAmI: User!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!, id: String!): User!
   removeUser(id: String!): String!
-  createAuth(createAuthInput: CreateAuthInput!): Auth!
-  updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
-  removeAuth(id: Int!): Auth!
+  createAuth(createAuthInput: CreateAuthInput!): Token!
 }
 
 input CreateUserInput {
@@ -49,12 +43,6 @@ input UpdateUserInput {
 }
 
 input CreateAuthInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateAuthInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  email: String!
+  password: String!
 }

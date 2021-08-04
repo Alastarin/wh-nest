@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { UsersService } from '../users/users.service';
 import { CreateAuthInput } from './dto/create-auth.input';
-import { UpdateAuthInput } from './dto/update-auth.input';
+import { ConfigService } from '@nestjs/config';
+import { User } from 'src/users/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
-  create(createAuthInput: CreateAuthInput) {
-    return 'This action adds a new auth';
+  constructor(
+    private userService: UsersService,
+    private jwtService: JwtService,
+    private configService: ConfigService,
+  ) {}
+  async validateUser(userId: string): Promise<User> {
+    return await this.userService.findOne(userId);
   }
-
-  findAll() {
-    return `This action returns all auth`;
+  async passwordValidate(loginPassword: string, userPassword: string) {
+    return await bcrypt.compare(loginPassword, userPassword);
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthInput: UpdateAuthInput) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async login(createAuthInput: CreateAuthInput): Promise<any> {
+    const user = await this.userService.findByEmail(createAuthInput.email);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    const isPasswordValid = await this.passwordValidate(
+      createAuthInput.password,
+      user.password,
+    );
+    if (user && isPasswordValid) {
+      return {
+        access_token: this.jwtService.sign({ email: user.email, sub: user.id }),
+        expires_in: this.configService.get<string>('expiresIn'),
+      };
+    } else return null;
   }
 }
