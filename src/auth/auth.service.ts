@@ -30,8 +30,9 @@ export class AuthService {
     );
     if (user && isPasswordValid) {
       return {
-        access_token: this.jwtService.sign({ email: user.email, sub: user.id }),
-        expires_in: this.configService.get<string>('expiresIn'),
+        accessToken: this.jwtService.sign({ email: user.email, sub: user.id }),
+        expiresIn: this.configService.get<string>('expiresIn'),
+        userName: user.name,
       };
     } else return null;
   }
