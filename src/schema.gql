@@ -19,10 +19,17 @@ type Token {
   userName: String!
 }
 
+type Item {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Query {
   users: [User!]!
   user(id: String!): User!
   whoAmI: User!
+  items: [Item!]!
+  item(id: Int!): Item!
 }
 
 type Mutation {
@@ -30,6 +37,9 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!, id: String!): User!
   removeUser(id: String!): String!
   createAuth(createAuthInput: CreateAuthInput!): Token!
+  createItem(createItemInput: CreateItemInput!): Item!
+  updateItem(updateItemInput: UpdateItemInput!): Item!
+  removeItem(id: Int!): Item!
 }
 
 input CreateUserInput {
@@ -47,4 +57,15 @@ input UpdateUserInput {
 input CreateAuthInput {
   email: String!
   password: String!
+}
+
+input CreateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateItemInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ItemsModule } from './items/items.module';
 import configuration from './config/configuration';
 
 const environment = process.env.NODE_ENV || 'development';
@@ -35,6 +36,7 @@ const environment = process.env.NODE_ENV || 'development';
     UsersModule,
     ConfigModule,
     AuthModule,
+    ItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
