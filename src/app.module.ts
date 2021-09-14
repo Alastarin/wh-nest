@@ -9,11 +9,14 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ItemsModule } from './items/items.module';
 import configuration from './config/configuration';
+import { CommandModule } from 'nestjs-command';
+import { ItemsSeeds } from './items/seeds/items.seeds';
 
 const environment = process.env.NODE_ENV || 'development';
 
 @Module({
   imports: [
+    CommandModule,
     ConfigModule.forRoot({
       envFilePath: `.env.${environment}`,
       isGlobal: true,

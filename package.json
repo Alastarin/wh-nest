@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "compose": "docker-compose up"
+    "compose": "docker-compose up",
+    "seed": "npx nestjs-command seed:items"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -38,12 +39,14 @@
     "graphql": "^15.5.1",
     "graphql-tools": "^7.0.5",
     "mongoose": "^5.13.3",
+    "nestjs-command": "^3.0.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "yargs": "^17.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
@@ -55,6 +58,7 @@
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",
     "@types/supertest": "^2.0.11",
+    "@types/yargs": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "eslint": "^7.30.0",

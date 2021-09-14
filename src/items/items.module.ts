@@ -3,13 +3,12 @@ import { ItemsService } from './items.service';
 import { ItemsResolver } from './items.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Item, ItemSchema } from './schemas/item.schema';
-import { ItemsController } from './items.controller';
+import { ItemsSeeds } from './seeds/items.seeds';
 
 @Module({
-  providers: [ItemsResolver, ItemsService],
+  providers: [ItemsResolver, ItemsService, ItemsSeeds],
   imports: [
     MongooseModule.forFeature([{ name: Item.name, schema: ItemSchema }]),
   ],
-  controllers: [ItemsController],
 })
 export class ItemsModule {}
